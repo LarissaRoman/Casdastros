@@ -74,6 +74,21 @@ typedef struct {
     char tempoObs[5], tempoInter[5], resp;
 }reg5;
 
+//num6()
+typedef struct  {
+     int codID, faixa_etaria;
+     char nome_medicamento[20], indicacao[20], posologia[30], contra_indicacao[20];
+     float valor;
+}reg6;
+
+
+//num7()
+typedef struct  {
+     int cod_exame, pgto;
+     char nome_exame[20];
+}reg7;
+
+
 //Declaração de structs:
 
 
@@ -82,6 +97,8 @@ reg2 sintomas[A];
 reg3 medicos[A];
 reg4 pacientes[A];
 reg5 tratamentos[A];
+reg6 medicamentos[A];
+reg7 exames[A];
 
 
 
@@ -155,8 +172,10 @@ int main() {
                     tratamento();
                 break;
             case 6:
+                medicamento();
                 break;
             case 7:
+                exame();
                 break;
             case 8:
                 break;
@@ -615,6 +634,69 @@ void tratamento() {
             scanf("%s", tratamentos[i].tempoInter);
         }
 
+
     sair();
+    }
+}
+
+void medicamento(){
+
+    for (i = 0; i < A; i++) {
+        medicamentos[i].codID = i + 1;
+        printf ("\n Codigo do exame: %d \n", medicamentos[i].codID);
+        printf("Nome do medicamento \n");
+        fflush(stdin);
+        gets(medicamentos[i].nome_medicamento);
+        fflush(stdin);
+        printf("Para quais pacientes o medicamento e indicado?\n");
+        gets(medicamentos[i].indicacao);
+        fflush(stdin);
+        printf("Informe a posologia \n");
+        gets(medicamentos[i].posologia);
+        printf("Informe a faixa etaria indicada para o uso do medicamento:\n");
+        scanf("%d", &medicamentos[i].faixa_etaria);
+        fflush(stdin);
+        printf("Para quais pacientes o medicamento eh contra indicado?\n");
+        gets(medicamentos[i].contra_indicacao);
+
+
+    sair();
+    }
+}
+
+void exame() {
+
+     for (i = 0; i < A; i++) {
+
+         exames[i].cod_exame = i + 1;
+         fflush(stdin);
+         printf ("\n Codigo do exame: %d \n", exames[i].cod_exame);
+         printf("Nome do exame \n");
+         gets(exames[i].nome_exame);
+         fflush(stdin);
+
+         do {
+             printf("A forma de pagamento\n1. Convenio\n2. Particular\n3. Gratuito\n");
+             scanf("%d",exames[i].pgto);
+
+             switch (exames[i].pgto) {
+
+                case 1:
+                    printf("Convenio\n");
+                    break;
+                case 2:
+                    printf("Particular\n");
+                    break;
+                case 3:
+                    printf("Gratuito\n");
+                    break;
+                default:
+                    if(exames[i].pgto <= 0 || exames[i].pgto > 3)
+                        printf("Opcao invalida\n");
+             }
+
+        }while (exames[i].pgto <= 0 || exames[i].pgto > 3);
+
+        sair();
     }
 }
